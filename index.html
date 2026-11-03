@@ -46,11 +46,46 @@ button{cursor:pointer}
 .brand span{display:block;font-size:.8rem;color:var(--head);margin-top:2px}
 .top{display:flex;align-items:center;justify-content:space-between;padding:18px 0 6px;gap:8px}
 .month-nav{display:flex;align-items:center;gap:4px}
-.month-nav h1{font-family:var(--font-head);font-weight:500;color:var(--head);letter-spacing:.01em;font-size:1.3rem;margin:0 6px;min-width:9.5ch;text-align:center}
-.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink-2)}
+.month-nav h1{font-family:var(--font-head);font-weight:500;color:var(--head);letter-spacing:.01em;font-size:1.15rem;margin:0 4px;min-width:8.5ch;text-align:center;white-space:nowrap}
+.icon-btn{width:36px;height:36px;flex:none;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink-2)}
 .icon-btn svg{width:20px;height:20px}
 .status{font-size:.85rem;color:var(--ink-3);min-height:1.2em;padding:0 2px}
 .status.warn{color:var(--danger);font-weight:600}
+.lock{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));overflow:auto}
+.lock-in{width:100%;max-width:320px;text-align:center}
+.lock-brand{font-family:var(--font-head);font-size:1.3rem;font-weight:500;letter-spacing:.02em;color:var(--ink)}
+.lock-msg{color:var(--head);margin:6px 0 24px;font-size:.95rem}
+.lock-dots{display:flex;justify-content:center;gap:14px;height:16px;margin-bottom:6px}
+.lock-dots i{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--head)}
+.lock-dots i.on{background:var(--ink);border-color:var(--ink)}
+.lock-dots.shake{animation:shake .4s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.lock-err{min-height:1.4em;color:var(--danger);font-size:.88rem;margin:8px 0 16px}
+.lock-pad{display:grid;grid-template-columns:repeat(3,72px);gap:16px 22px;justify-content:center}
+.lock-pad button{width:72px;height:72px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-family:var(--font-head);font-size:1.6rem;font-weight:300;color:var(--ink)}
+.lock-pad button:active{background:var(--surface-2)}
+.lock-pad .blank{visibility:hidden}
+.lock-pad .del{border:0;background:transparent;font-family:var(--font-body);font-size:.9rem;color:var(--ink-2)}
+.lock-link{margin-top:22px;border:0;background:transparent;color:var(--ink-3);font-size:.85rem;text-decoration:underline;padding:8px}
+.icon-btn[aria-pressed="true"]{color:var(--ink);border-color:var(--head)}
+body.blurred :is(.hero .big,.hero .sub,.ribbon-legend,.amt,.samt,.pct,.loan-stats b,.loan-head .num,.totals b,.stmt-foot b,.sgroup>span:last-child,.money){filter:blur(8px);user-select:none;-webkit-user-select:none}
+:is(.hero .big,.amt,.samt,.pct,.money){transition:filter .2s}
+.warn-box{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--danger);border-left-width:3px;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:.88rem;color:var(--danger);background:color-mix(in srgb,var(--danger) 9%,transparent)}
+.warn-box svg{width:17px;height:17px;flex:none;margin-top:1px}
+.loan.late{border-left:3px solid var(--danger);padding-left:12px;margin-left:-15px}
+.row.late .name small,.srow.late .sname small{color:var(--danger);font-weight:600}
+.row.late .amt,.srow.late .samt{color:var(--danger)}
+.nudge.alert{border-left-color:var(--danger)}
+.nudge.alert svg{color:var(--danger)}
+details.sched{margin-top:12px;border-top:1px dashed var(--line);padding-top:8px}
+details.sched summary{cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-2);padding:4px 0}
+.sched-row{display:grid;grid-template-columns:4.6em 1fr auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line);font-size:.86rem}
+.sched-row:first-of-type{border-top:0}
+.sched-row .st{font-size:.76rem;font-weight:700;padding:2px 8px;border-radius:20px;border:1px solid var(--line);color:var(--ink-3);justify-self:start}
+.sched-row .st.paid{color:var(--income);border-color:currentColor}
+.sched-row .st.missed{color:var(--danger);border-color:currentColor}
+.sched-row .st.due{color:var(--ink);border-color:var(--ink)}
+.sched-row.missed{color:var(--danger)}
 .greet{font-family:var(--font-head);font-size:1.3rem;font-weight:400;color:var(--ink);margin:10px 0 4px;letter-spacing:.005em}
 .nudge{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--head);border-radius:10px;padding:11px 12px;margin:10px 0;font-size:.9rem;color:var(--ink-2)}
 .nudge svg{width:18px;height:18px;flex:none;margin-top:1px;color:var(--head)}
@@ -213,7 +248,7 @@ nav.tabs .add-tab span.plus svg{width:20px;height:20px}
       <h1 id="monthTitle">—</h1>
       <button class="icon-btn" id="nextM" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
-    <div style="display:flex;gap:8px"><button class="icon-btn" id="themeBtn" aria-label="Switch theme"></button>
+    <div style="display:flex;gap:6px"><button class="icon-btn" id="blurBtn" aria-label="Hide amounts" aria-pressed="false"></button><button class="icon-btn" id="themeBtn" aria-label="Switch theme"></button>
     <button class="icon-btn" id="openSettings" aria-label="Salary and settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg></button></div>
   </header>
   <div class="status" id="status" role="status"></div>
@@ -281,6 +316,16 @@ nav.tabs .add-tab span.plus svg{width:20px;height:20px}
 
 <div class="sheet-back" id="sheetBack"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <div class="toast" id="toast"></div>
+<div id="lock" class="lock" role="dialog" aria-modal="true" aria-label="Cashflow Diaries is locked">
+  <div class="lock-in">
+    <div class="lock-brand">Cashflow Diaries</div>
+    <div id="lockMsg" class="lock-msg">Opening your diary…</div>
+    <div id="lockDots" class="lock-dots" hidden></div>
+    <div id="lockErr" class="lock-err" role="alert"></div>
+    <div id="lockPad" class="lock-pad" hidden><button type="button" data-key="1" aria-label="1">1</button><button type="button" data-key="2" aria-label="2">2</button><button type="button" data-key="3" aria-label="3">3</button><button type="button" data-key="4" aria-label="4">4</button><button type="button" data-key="5" aria-label="5">5</button><button type="button" data-key="6" aria-label="6">6</button><button type="button" data-key="7" aria-label="7">7</button><button type="button" data-key="8" aria-label="8">8</button><button type="button" data-key="9" aria-label="9">9</button><button type="button" class="blank" tabindex="-1" aria-hidden="true"></button><button type="button" data-key="0" aria-label="0">0</button><button type="button" class="del" data-key="del" aria-label="Delete">Delete</button></div>
+    <button type="button" id="lockForgot" class="lock-link" hidden>Forgot passcode?</button>
+  </div>
+</div>
 
 <script>
 /* ---------- categories ---------- */
@@ -377,7 +422,7 @@ function salaryFor(ym){
 const LKEY='salary-map-v1';
 let store={mode:'local',settingsRef:null,txCol:null,writing:Promise.resolve(),readOnly:false};
 function normSettings(d){
-  return {currency:d?.currency||'AED',salaryHistory:Array.isArray(d?.salaryHistory)?d.salaryHistory:[],loans:Array.isArray(d?.loans)?d.loans:[],profile:(d&&d.profile&&typeof d.profile==='object')?d.profile:null};
+  return {currency:d?.currency||'AED',salaryHistory:Array.isArray(d?.salaryHistory)?d.salaryHistory:[],loans:Array.isArray(d?.loans)?d.loans:[],profile:(d&&d.profile&&typeof d.profile==='object')?d.profile:null,lock:(d&&d.lock&&d.lock.hash&&d.lock.salt)?d.lock:null};
 }
 function loadLocal(){
   try{const raw=localStorage.getItem(LKEY);if(raw){const d=JSON.parse(raw);state.settings=normSettings(d.settings);state.tx=Array.isArray(d.tx)?d.tx:[]}}catch(e){}
@@ -413,7 +458,7 @@ function removeTx(id){
 }
 
 function showLocalNote(){
-  if(store.mode==='local'){$('#status').textContent='Entries are saved only in this browser on this device.';maybeOnboard()}
+  if(store.mode==='local'){$('#status').textContent='Entries are saved only in this browser on this device.';decideGate()}
 }
 async function connect(){
   if(!window.claude||typeof window.claude.use!=='function'){showLocalNote();return}
@@ -427,13 +472,14 @@ async function connect(){
         store.txCol=store.settingsRef.collection('tx');
         let gotS=false,gotT=false;
         const st=$('#status');st.textContent='Loading your entries…';
-        const timer=setTimeout(()=>{st.textContent='Can’t reach your saved data yet. What you see may be out of date.'},10000);
+        const timer=setTimeout(()=>{st.textContent='Can’t reach your saved data yet. What you see may be out of date.';if(!gate.decided) $('#lockMsg').textContent='Still opening your diary. Check your connection.'},10000);
         const done=()=>{if(gotS&&gotT){clearTimeout(timer);st.textContent=''}};
         store.settingsRef.onSnapshot(s=>{
           state.settings=normSettings(s.exists?JSON.parse(JSON.stringify(s.data())):null);
-          if(!s.metadata.fromCache){gotS=true;done();maybeOnboard()}
+          if(!s.metadata.fromCache){gotS=true;done()}
           renderAll();
-        },e=>{clearTimeout(timer);st.textContent='Your saved data isn’t available right now.'});
+          if(!s.metadata.fromCache||hasLock()) decideGate();
+        },e=>{clearTimeout(timer);st.textContent='Your saved data isn’t available right now.';if(!gate.decided) $('#lockMsg').textContent='Your diary can’t be opened right now. Try again in a moment.'});
         store.txCol.onSnapshot(q=>{
           state.tx=q.docs.map(d=>Object.assign({id:d.id},JSON.parse(JSON.stringify(d.data()))));
           if(!q.metadata.fromCache){gotT=true;done()}
@@ -520,12 +566,45 @@ function summary(ym){
   for(const t of list) if(t.kind!=='income'){const c=CAT[t.cat]?t.cat:'misc';byCat[c]=(byCat[c]||0)+(+t.amount||0);spent+=(+t.amount||0)}
   return {salary,extra,income:salary+extra,spent,left:salary+extra-spent,byCat,count:list.length};
 }
+const M=n=>`<span class="money">${fmt(n)}</span>`;
+const WARN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L1.8 18a2 2 0 001.7 3h17a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>';
 function loanInfo(l){
   const total=Math.max(1,+l.totalMonths||1);
+  const monthly=+l.monthly||0;
   const paid=Math.min(total,(+l.paidBefore||0)+(l.paidLog||[]).length);
   const left=total-paid;
   const lastMonth=addMonths(l.start,total-1);
-  return {total,paid,left,lastMonth,remaining:left*(+l.monthly||0),paidThisMonth:(l.paidLog||[]).includes(nowYM()),done:left<=0};
+  const now=nowYM();const started=l.start<=now;
+  const dueBefore=started?Math.min(total,monthsBetween(l.start,now)):0;      // installments from earlier months
+  const dueThrough=started?Math.min(total,monthsBetween(l.start,now)+1):0;   // including this month
+  const overdue=Math.max(0,dueBefore-paid);
+  const dueNow=Math.max(0,dueThrough-paid);
+  const missedMonths=Array.from({length:overdue},(_,k)=>addMonths(l.start,paid+k));
+  const thisMonthOpen=dueNow>overdue;
+  const pastDueDay=!!l.dueDay&&new Date().getDate()>+l.dueDay;
+  return {total,paid,left,lastMonth,monthly,remaining:left*monthly,done:left<=0,overdue,dueNow,dueAmount:dueNow*monthly,missedMonths,
+    paidThisMonth:dueNow===0,paidSomethingNow:(l.paidLog||[]).includes(now),late:overdue>0||(thisMonthOpen&&pastDueDay),pastDueDay,thisMonthOpen};
+}
+function loanDueText(l,i){
+  if(i.overdue>0){
+    const ms=i.missedMonths.map(m=>ymLabel(m,true)).join(', ');
+    return `Missed ${ms}. ${i.overdue===1?'It has':'They have'} carried over, so ${M(i.dueAmount)} is due now.`;
+  }
+  if(i.thisMonthOpen&&i.pastDueDay) return `Not paid yet. It was due on the ${ordinal(+l.dueDay)}.`;
+  return '';
+}
+function loanSchedule(l,i){
+  const now=nowYM();
+  const rows=Array.from({length:i.total},(_,k)=>{
+    const m=addMonths(l.start,k);
+    let st,cls;
+    if(k<i.paid){st='Paid';cls='paid'}
+    else if(m<now){st='Missed';cls='missed'}
+    else if(m===now){st=i.pastDueDay?'Late':'Due';cls=i.pastDueDay?'missed':'due'}
+    else {st='Upcoming';cls=''}
+    return `<div class="sched-row ${cls==='missed'?'missed':''}"><span>${ymLabel(m,true)}</span><span class="st ${cls}">${st}</span><span class="money">${fmt(i.monthly,1)}</span></div>`;
+  }).join('');
+  return `<details class="sched"><summary>Payment schedule${l.dueDay?` (due every ${ordinal(+l.dueDay)})`:''}</summary>${rows}</details>`;
 }
 
 /* ---------- render: overview ---------- */
@@ -541,20 +620,25 @@ const BELL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 function nudgesHTML(s){
   if(state.month!==nowYM()) return '';
   const out=[];const today=new Date().getDate();
+  const alerts=[];
   for(const l of state.settings.loans){
-    const i=loanInfo(l);if(i.done||i.paidThisMonth||l.start>nowYM()||!l.dueDay) continue;
-    const d=+l.dueDay-today;const nm=esc(l.name);
-    if(d<0) out.push(addr(`your ${nm} payment was due on the ${ordinal(+l.dueDay)}. Tap Paid below once it’s settled.`));
-    else if(d===0) out.push(addr(`your ${nm} payment of ${fmt(l.monthly)} is due today.`));
-    else if(d<=3) out.push(addr(`your ${nm} payment of ${fmt(l.monthly)} is due ${d===1?'tomorrow':'in '+d+' days'}.`));
+    const i=loanInfo(l);if(i.done||i.dueNow===0) continue;
+    const nm=esc(l.name);
+    if(i.overdue>0){alerts.push(addr(`your ${nm} payment for ${i.missedMonths.map(m=>ymLabel(m)).join(' and ')} wasn’t paid. It has carried over, so ${M(i.dueAmount)} is due now.`));continue}
+    if(!l.dueDay) continue;
+    const d=+l.dueDay-today;
+    if(d<0) alerts.push(addr(`your ${nm} payment was due on the ${ordinal(+l.dueDay)} and isn’t marked paid. Tap Paid below once it’s settled.`));
+    else if(d===0) out.push(addr(`your ${nm} payment of ${M(l.monthly)} is due today.`));
+    else if(d<=3) out.push(addr(`your ${nm} payment of ${M(l.monthly)} is due ${d===1?'tomorrow':'in '+d+' days'}.`));
   }
-  if(s.income&&s.left<0) out.push(addr(`you’ve spent ${fmt(-s.left)} more than came in this month.`));
+  if(s.income&&s.left<0) alerts.push(addr(`you’ve spent ${M(-s.left)} more than came in this month.`));
   else if(s.income&&s.spent/s.income>=0.9) out.push(addr(`heads up: you’ve used ${Math.round(s.spent/s.income*100)}% of this month’s income.`));
-  return out.slice(0,3).map(m=>`<div class="nudge" role="status">${BELL}<span>${m}</span></div>`).join('');
+  if(!hasLock()) out.push(addr('protect your numbers with a passcode.')+' <button type="button" class="btn small ghost" data-act="pc-set" style="margin-top:6px">Set passcode</button>');
+  return alerts.map(m=>`<div class="nudge alert" role="alert">${WARN}<span>${m}</span></div>`).join('')+out.slice(0,Math.max(0,3-alerts.length)).map(m=>`<div class="nudge" role="status">${BELL}<span>${m}</span></div>`).join('');
 }
 let onboardShown=false;
 function maybeOnboard(){
-  if(onboardShown||store.readOnly||firstName()) return;
+  if(gate.locked||onboardShown||store.readOnly||firstName()) return;
   onboardShown=true;openWelcome();
 }
 function setSalary(v){
@@ -581,8 +665,9 @@ function openWelcome(){
     const v=parseFloat(String($('#wSalary').value).replace(/,/g,''))||0;
     if(v) setSalary(v);
     state.settings.currency=($('#wCur').value.trim()||'AED').toUpperCase();
-    persistSettings();closeSheet();renderAll();
+    persistSettings();renderAll();
     toast(`Welcome, ${firstName()}! Your diary is ready.`);
+    openPasscodeSetup(true);
   };
 }
 function periodToggle(){
@@ -655,9 +740,11 @@ function renderHome(){
 
   // due loans
   if(state.month===nowYM()){
-    const due=state.settings.loans.filter(l=>{const i=loanInfo(l);return !i.done&&!i.paidThisMonth&&l.start<=nowYM()});
+    const due=state.settings.loans.filter(l=>{const i=loanInfo(l);return !i.done&&i.dueNow>0});
     if(due.length){
-      html+=`<section class="block"><h2>Due this month</h2>${due.map(l=>`<div class="row"><span class="dot" style="background:${CAT.loans.color}"></span><div class="name">${esc(l.name)}<small>${l.dueDay?'Due on the '+ordinal(+l.dueDay):esc(loanTypeName(l.type))}</small></div><div class="amt">${fmt(l.monthly)}</div><button class="btn small" data-pay="${l.id}">Paid</button></div>`).join('')}</section>`;
+      html+=`<section class="block"><h2>Due this month</h2>${due.map(l=>{const i=loanInfo(l);
+        const sub=i.overdue>0?`${i.overdue} missed ${i.overdue===1?'payment':'payments'} carried over`:(i.pastDueDay?'Overdue, was due on the '+ordinal(+l.dueDay):(l.dueDay?'Due on the '+ordinal(+l.dueDay):esc(loanTypeName(l.type))));
+        return `<div class="row ${i.late?'late':''}"><span class="dot" style="background:${i.late?'var(--danger)':CAT.loans.color}"></span><div class="name">${esc(l.name)}<small>${sub}</small></div><div class="amt">${fmt(i.dueAmount)}</div><button class="btn small" data-pay="${l.id}">Paid</button></div>`}).join('')}</section>`;
     }
   }
 
@@ -782,7 +869,7 @@ $('#saveTx').onclick=async()=>{
 $('#delTx').onclick=()=>twoTap($('#delTx'),'Tap again to delete',()=>{
   $('#delTx').dataset.armed='';$('#delTx').textContent='Delete this entry';
   const t=state.tx.find(x=>x.id===state.editId);if(!t) return;
-  if(t.loanId){const l=state.settings.loans.find(x=>x.id===t.loanId);if(l){l.paidLog=(l.paidLog||[]).filter(m=>m!==t.date.slice(0,7));persistSettings()}}
+  if(t.loanId){const l=state.settings.loans.find(x=>x.id===t.loanId);if(l){const log=l.paidLog||[];const k=log.lastIndexOf(t.date.slice(0,7));if(k>=0){log.splice(k,1);l.paidLog=log;persistSettings()}}}
   if(t.receiptId&&assets) assets.delete(t.receiptId).catch(()=>{});
   state.tx=state.tx.filter(x=>x.id!==t.id);removeTx(t.id);
   resetForm();toast('Entry deleted');renderAll();go('history');
@@ -807,7 +894,8 @@ function renderLoans(){
   for(const l of loans){
     const i=loanInfo(l);
     const dense=i.total>60?' dense':'';
-    html+=`<div class="loan" style="--loan-c:${CAT.loans.color}">
+    const warn=i.done?'':loanDueText(l,i);
+    html+=`<div class="loan ${i.late&&!i.done?'late':''}" style="--loan-c:${CAT.loans.color}">
       <div class="loan-head"><div><b>${esc(l.name)}</b><br><span class="tag ${i.done?'done':''}">${i.done?'Fully paid':esc(loanTypeName(l.type))}</span></div>
       <div style="text-align:right"><b class="num">${fmt(l.monthly)}</b><div style="font-size:.8rem;color:var(--ink-3)">per month${l.dueDay?', due '+ordinal(+l.dueDay):''}</div></div></div>
       <div class="ticks${dense}" aria-label="${i.paid} of ${i.total} payments made">${Array.from({length:i.total},(_,k)=>`<i class="${k<i.paid?'on':''}"></i>`).join('')}</div>
@@ -817,11 +905,14 @@ function renderLoans(){
         <div><b class="num">${fmt(i.paid*(+l.monthly||0),1)}</b><span>paid so far</span></div>
         <div><b class="num">${fmt(i.remaining,1)}</b><span>still to pay</span></div>
       </div>
+      ${warn?`<div class="warn-box" role="alert">${WARN}<span>${warn}</span></div>`:''}
       <div class="loan-actions">
-        ${i.done?'':(i.paidThisMonth?`<button class="btn small ghost" data-unpay="${l.id}">Paid for ${MONTHS[+nowYM().slice(5)-1]}. Undo</button>`:`<button class="btn small" data-pay="${l.id}">Mark ${MONTHS[+nowYM().slice(5)-1]} paid</button>`)}
+        ${i.done||i.dueNow===0?'':`<button class="btn small" data-pay="${l.id}">${i.overdue?'Pay '+ymLabel(i.missedMonths[0],true):'Mark '+MONTHS[+nowYM().slice(5)-1]+' paid'}</button>`}
+        ${!i.done&&i.dueNow===0&&l.start<=nowYM()?`<span style="align-self:center;font-size:.85rem;color:var(--income);font-weight:600">Up to date</span>`:''}
+        ${i.paidSomethingNow?`<button class="btn small ghost" data-unpay="${l.id}">Undo last payment</button>`:''}
         <button class="btn small ghost" data-editloan="${l.id}">Edit</button>
-        ${i.done?'':`<span style="align-self:center;font-size:.85rem;color:var(--ink-3)">Last payment ${ymLabel(i.lastMonth,true)}</span>`}
       </div>
+      ${loanSchedule(l,i)}
     </div>`;
   }
   html+=`</section><button class="btn full" data-act="newloan">Add a loan or installment</button>`;
@@ -845,20 +936,22 @@ function loanPaymentsHTML(){
 }
 function payLoan(id){
   const l=state.settings.loans.find(x=>x.id===id);if(!l) return;
-  const m=nowYM();l.paidLog=l.paidLog||[];
-  if(l.paidLog.includes(m)) return;
-  l.paidLog.push(m);persistSettings();
-  const tx={id:uid(),kind:'expense',amount:+l.monthly,date:todayISO(),note:l.name,cat:'loans',loanId:l.id,created:Date.now()};
+  const before=loanInfo(l);if(before.done||before.dueNow===0) return;
+  const forMonth=before.overdue?before.missedMonths[0]:nowYM();
+  l.paidLog=l.paidLog||[];l.paidLog.push(nowYM());persistSettings();
+  const tx={id:uid(),kind:'expense',amount:+l.monthly,date:todayISO(),note:forMonth===nowYM()?l.name:`${l.name} (${ymLabel(forMonth,true)} installment)`,cat:'loans',loanId:l.id,created:Date.now()};
   state.tx.push(tx);persistTx(tx);
-  const i=loanInfo(l);
-  const fn=firstName();
-  toast(i.done?`${fn?'Congrats, '+fn+'! ':''}${l.name} is fully paid.`:`${fn?'Nice one, '+fn+'. ':'Paid. '}${i.left} ${i.left===1?'month':'months'} to go.`);
+  const i=loanInfo(l);const fn=firstName();
+  if(i.done) toast(`${fn?'Congrats, '+fn+'! ':''}${l.name} is fully paid.`);
+  else if(i.dueNow>0) toast(`${fn?'Got it, '+fn+'. ':''}${ymLabel(forMonth,true)} paid. ${i.dueNow} more ${i.dueNow===1?'payment is':'payments are'} still due now.`);
+  else toast(`${fn?'Nice one, '+fn+'. ':'Paid. '}You’re up to date. ${i.left} ${i.left===1?'month':'months'} to go.`);
   renderAll();
 }
 function unpayLoan(id){
   const l=state.settings.loans.find(x=>x.id===id);if(!l) return;
-  const m=nowYM();l.paidLog=(l.paidLog||[]).filter(x=>x!==m);persistSettings();
-  const t=state.tx.find(x=>x.loanId===id&&x.date.slice(0,7)===m);
+  const m=nowYM();const log=l.paidLog||[];const k=log.lastIndexOf(m);if(k<0) return;
+  log.splice(k,1);l.paidLog=log;persistSettings();
+  const t=state.tx.filter(x=>x.loanId===id&&x.date.slice(0,7)===m).sort((a,b)=>(b.created||0)-(a.created||0))[0];
   if(t){state.tx=state.tx.filter(x=>x!==t);removeTx(t.id)}
   toast('Payment undone');renderAll();
 }
@@ -903,6 +996,8 @@ function openSettings(){
   <div class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><span>${store.mode==='db'?'Your entries, loans and salary are stored in a private space tied to your Claude account. Anyone else who opens this link gets their own empty tracker and can’t see your numbers, and neither can the person who shared it.':'Your entries are saved only in this browser on this device and aren’t sent anywhere.'}</span></div>
   <label class="field"><span>Monthly salary</span><input id="sSalary" inputmode="decimal" value="${cur||''}" placeholder="e.g. 12000"></label>
   <label class="field"><span>Currency</span><input id="sCur" value="${esc(state.settings.currency)}" maxlength="4" style="text-transform:uppercase"><small>AED, PHP, USD… shown next to every amount.</small></label>
+  <div class="field"><span>Passcode lock</span><div style="display:flex;gap:8px;flex-wrap:wrap">${hasLock()?'<button type="button" class="btn small ghost" data-act="pc-set">Change passcode</button><button type="button" class="btn small danger" data-act="pc-off">Turn off</button>':'<button type="button" class="btn small" data-act="pc-set">Set a passcode</button>'}</div><small>${hasLock()?'On. The app asks for it every time it opens, and again after a minute away.':'Off. Anyone who opens the app on your phone can see your numbers.'}</small></div>
+  <div class="field"><span>Hide amounts when the app opens</span><div class="seg" id="sBlur"><button type="button" data-blur="1" aria-pressed="${blurOnOpen()}">On</button><button type="button" data-blur="0" aria-pressed="${!blurOnOpen()}">Off</button></div><small>Your numbers stay blurred until you tap the eye icon at the top.</small></div>
   <div class="field"><span>Appearance</span><div class="seg three" id="sTheme">${['auto','light','dark'].map(t=>`<button type="button" data-theme-opt="${t}" aria-pressed="${(savedTheme||'auto')===t}">${t==='auto'?'Auto':t==='light'?'Off-white':'Matte black'}</button>`).join('')}</div><small>Auto follows your phone’s light or dark setting.</small></div>
   ${store.mode==='local'?`<div class="field"><span>Backup</span><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn small ghost" id="bkDown">Download backup</button><button type="button" class="btn small ghost" id="bkUp">Restore from backup</button></div><small>Your data lives only in this browser. Download a backup now and then, and restore it on a new phone or browser.</small><input type="file" id="bkFile" accept="application/json,.json" hidden></div>`:''}
   <div class="actions"><button class="btn ghost" data-close>Cancel</button><button class="btn" id="sSave">Save</button></div>`);
@@ -921,6 +1016,7 @@ function openSettings(){
       }catch(err){toast('That file isn’t a Cashflow Diaries backup.')}
     };
   }
+  $('#sBlur').onclick=e=>{const b=e.target.closest('button');if(!b) return;try{localStorage.setItem(BLUR_KEY,b.dataset.blur)}catch(err){}$('#sBlur').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b))};
   $('#sTheme').onclick=e=>{const b=e.target.closest('button');if(!b) return;setTheme(b.dataset.themeOpt);$('#sTheme').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b))};
   $('#sSave').onclick=()=>{
     const nm=$('#sName').value.trim();
@@ -986,9 +1082,9 @@ function renderExpenses(){
   } else {
     html+=`<div class="slist">${list.map(item).join('')}</div>`;
   }
-  const due=state.month===nowYM()?state.settings.loans.filter(l=>{const i=loanInfo(l);return !i.done&&!i.paidThisMonth&&l.start<=nowYM()}):[];
-  const dueTotal=due.reduce((a,l)=>a+(+l.monthly||0),0);
-  if(due.length) html+=`<div class="sgroup"><span><i class="dot" style="background:${CAT.loans.color}"></i>Loan payments still due</span><span>${fmt(dueTotal,1)}</span></div><div class="slist">${due.map(l=>`<div class="srow"><span class="sdate">${l.dueDay?l.dueDay+' '+MONTHS[+nowYM().slice(5)-1].slice(0,3):'Due'}</span><span class="sname"><b>${esc(l.name)}</b><small>Not paid yet</small></span><button class="btn small" data-pay="${l.id}">Paid</button><span class="samt">${fmt(l.monthly,1)}</span></div>`).join('')}</div>`;
+  const due=state.month===nowYM()?state.settings.loans.filter(l=>{const i=loanInfo(l);return !i.done&&i.dueNow>0}):[];
+  const dueTotal=due.reduce((a,l)=>a+loanInfo(l).dueAmount,0);
+  if(due.length) html+=`<div class="sgroup"><span><i class="dot" style="background:${CAT.loans.color}"></i>Loan payments still due</span><span>${fmt(dueTotal,1)}</span></div><div class="slist">${due.map(l=>{const i=loanInfo(l);return `<div class="srow ${i.late?'late':''}"><span class="sdate">${l.dueDay?l.dueDay+' '+MONTHS[+nowYM().slice(5)-1].slice(0,3):'Due'}</span><span class="sname"><b>${esc(l.name)}</b><small>${i.overdue?`Missed ${i.missedMonths.map(m=>ymLabel(m,true)).join(', ')}, carried over`:(i.pastDueDay?'Overdue':'Not paid yet')}</small></span><button class="btn small" data-pay="${l.id}">Paid</button><span class="samt">${fmt(i.dueAmount,1)}</span></div>`}).join('')}</div>`;
   html+=`<div class="stmt-foot">
     <div class="line"><span>Total spent</span><b>${fmt(s.spent)}</b></div>
     <div class="line"><span>Money in${s.extra?' (salary + extra)':''}</span><b>${fmt(s.income)}</b></div>
@@ -1029,11 +1125,14 @@ document.addEventListener('click',e=>{
   else if(t.dataset.act==='settings') openSettings();
   else if(t.dataset.act==='newloan') openLoanForm();
   else if(t.dataset.act==='csv') exportCSV();
+  else if(t.dataset.act==='pc-set') openPasscodeSetup(false);
+  else if(t.dataset.act==='pc-off') openPasscodeOff();
 });
 
 function renderTitle(){
-  $('#monthTitle').textContent=state.tab==='loans'?'Loans':state.tab==='add'?(state.editId?'Edit entry':'New entry'):(state.tab==='home'&&state.period==='year'?state.month.slice(0,4):ymLabel(state.month));
+  $('#monthTitle').textContent=state.tab==='loans'?'Loans':state.tab==='add'?(state.editId?'Edit entry':'New entry'):(state.tab==='home'&&state.period==='year'?state.month.slice(0,4):ymLabel(state.month,window.innerWidth<420));
 }
+window.addEventListener('resize',()=>renderTitle());
 function renderAll(){
   renderTitle();
   $('#curLabel').textContent=state.settings.currency;
@@ -1058,7 +1157,127 @@ setTheme(savedTheme);
 if(darkMQ&&darkMQ.addEventListener) darkMQ.addEventListener('change',updateThemeBtn);
 $('#themeBtn').onclick=()=>{const next=currentTheme()==='dark'?'light':'dark';setTheme(next);toast(next==='dark'?'Matte black mode':'Off-white mode')};
 
+/* ---------- privacy blur ---------- */
+const BLUR_KEY='cd-blur-on-open';
+function blurOnOpen(){try{return localStorage.getItem(BLUR_KEY)!=='0'}catch(e){return true}}
+const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYE_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.9 17.9A10.4 10.4 0 0112 19c-7 0-11-7-11-7a19 19 0 015.1-5.9M9.9 4.2A10 10 0 0112 4c7 0 11 7 11 7a19 19 0 01-2.2 3.2M14.1 14.1a3 3 0 01-4.2-4.2"/><path d="M1 1l22 22"/></svg>';
+function setBlur(on){
+  document.body.classList.toggle('blurred',on);
+  const b=$('#blurBtn');b.innerHTML=on?EYE_OFF:EYE;b.setAttribute('aria-pressed',String(on));
+  b.setAttribute('aria-label',on?'Show amounts':'Hide amounts');
+}
+$('#blurBtn').onclick=()=>{const on=!document.body.classList.contains('blurred');setBlur(on);toast(on?'Amounts hidden':'Amounts showing')};
+setBlur(blurOnOpen());
+
+/* ---------- passcode lock ---------- */
+const FAIL_KEY='cd-lock-fails';
+const gate={decided:false,locked:true,entry:'',hiddenAt:0};
+const toB64=buf=>btoa(String.fromCharCode(...new Uint8Array(buf)));
+async function hashPin(pin,saltB64){
+  const salt=saltB64?Uint8Array.from(atob(saltB64),c=>c.charCodeAt(0)):crypto.getRandomValues(new Uint8Array(16));
+  const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(String(pin)),'PBKDF2',false,['deriveBits']);
+  const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},key,256);
+  return {salt:toB64(salt),hash:toB64(bits)};
+}
+async function pinMatches(pin){try{return (await hashPin(pin,state.settings.lock.salt)).hash===state.settings.lock.hash}catch(e){return false}}
+function hasLock(){return !!(state.settings.lock&&state.settings.lock.hash)}
+function setInert(on){document.querySelectorAll('.wrap,nav.tabs,.sheet-back').forEach(e=>on?e.setAttribute('inert',''):e.removeAttribute('inert'))}
+function readFails(){try{return JSON.parse(localStorage.getItem(FAIL_KEY))||{n:0,until:0}}catch(e){return {n:0,until:0}}}
+function writeFails(f){try{localStorage.setItem(FAIL_KEY,JSON.stringify(f))}catch(e){}}
+function renderDots(){const len=state.settings.lock?.len||4;$('#lockDots').innerHTML=Array.from({length:len},(_,i)=>`<i class="${i<gate.entry.length?'on':''}"></i>`).join('')}
+let waitTimer;
+function inWait(){
+  clearTimeout(waitTimer);
+  const left=Math.ceil((readFails().until-Date.now())/1000);
+  if(left>0){$('#lockErr').textContent=`Too many tries. Try again in ${left}s.`;waitTimer=setTimeout(inWait,1000);return true}
+  if($('#lockErr').textContent.startsWith('Too many')) $('#lockErr').textContent='';
+  return false;
+}
+function showLock(){
+  gate.locked=true;gate.entry='';closeSheet();setInert(true);
+  if(blurOnOpen()) setBlur(true);
+  const n=firstName();
+  $('#lock').hidden=false;
+  $('#lockMsg').textContent=n?`Welcome back, ${n}. Enter your passcode.`:'Enter your passcode.';
+  $('#lockDots').hidden=false;$('#lockPad').hidden=false;$('#lockForgot').hidden=false;$('#lockErr').textContent='';
+  renderDots();inWait();
+}
+function unlockUI(){gate.locked=false;$('#lock').hidden=true;setInert(false);maybeOnboard()}
+function decideGate(){if(gate.decided) return;gate.decided=true;if(hasLock()) showLock();else unlockUI()}
+let checking=false;
+async function pressKey(k){
+  if(!gate.locked||checking||!hasLock()||inWait()) return;
+  const len=state.settings.lock.len||4;
+  if(k==='del'){gate.entry=gate.entry.slice(0,-1);renderDots();return}
+  if(gate.entry.length>=len) return;
+  gate.entry+=k;renderDots();
+  if(gate.entry.length<len) return;
+  checking=true;const ok=await pinMatches(gate.entry);checking=false;
+  if(ok){writeFails({n:0,until:0});unlockUI();return}
+  const f=readFails();f.n++;if(f.n%5===0) f.until=Date.now()+30000*Math.pow(2,f.n/5-1);writeFails(f);
+  gate.entry='';const d=$('#lockDots');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');renderDots();
+  if(!inWait()){const r=5-f.n%5;$('#lockErr').textContent=`Wrong passcode. ${r} ${r===1?'try':'tries'} left before a short wait.`}
+}
+$('#lockPad').onclick=e=>{const b=e.target.closest('button[data-key]');if(b) pressKey(b.dataset.key)};
+document.addEventListener('keydown',e=>{if($('#lock').hidden) return;if(/^[0-9]$/.test(e.key)) pressKey(e.key);else if(e.key==='Backspace') pressKey('del')});
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){gate.hiddenAt=Date.now();return}
+  if(!gate.locked&&hasLock()&&gate.hiddenAt&&Date.now()-gate.hiddenAt>60000) showLock();
+});
+$('#lockForgot').onclick=()=>twoTap($('#lockForgot'),'This erases all your entries, loans and profile. Tap again to erase and start over.',eraseAll);
+function eraseAll(){
+  const ids=state.tx.map(t=>t.id),rc=state.tx.filter(t=>t.receiptId).map(t=>t.receiptId);
+  if(store.mode==='db'){
+    for(const id of ids) store.txCol.doc(id).delete().catch(()=>{});
+    store.settingsRef.delete().catch(()=>{});
+    if(assets) rc.forEach(id=>assets.delete(id).catch(()=>{}));
+  }
+  state.tx=[];state.settings=normSettings(null);
+  if(store.mode==='local') saveLocal();
+  writeFails({n:0,until:0});onboardShown=false;
+  $('#lockForgot').dataset.armed='';$('#lockForgot').textContent='Forgot passcode?';
+  renderAll();unlockUI();toast('Everything was erased. You can start fresh.');
+}
+function pinFields(withOld){
+  return `${withOld?'<label class="field"><span>Current passcode</span><input id="pcOld" type="password" inputmode="numeric" autocomplete="off" maxlength="6"></label>':''}`;
+}
+function openPasscodeSetup(fromWelcome){
+  const has=hasLock();
+  openSheet(`<button class="icon-btn x" data-close aria-label="Close">✕</button><h3>${has?'Change your passcode':'Set a passcode'}</h3>
+  <p style="color:var(--ink-2);margin:4px 0 0;font-size:.92rem">You’ll enter it every time you open Cashflow Diaries, before any numbers show. Use 4 to 6 digits and keep it somewhere safe: if you forget it, the only way back in is to erase the app’s data.</p>
+  ${pinFields(has)}
+  <label class="field"><span>New passcode</span><input id="pcNew" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6" placeholder="4 to 6 digits"></label>
+  <label class="field"><span>Type it again</span><input id="pcNew2" type="password" inputmode="numeric" autocomplete="new-password" maxlength="6"></label>
+  <div class="actions"><button class="btn ghost" data-close>${fromWelcome?'Skip for now':'Cancel'}</button><button class="btn" id="pcSave">Save passcode</button></div>`);
+  $('#pcSave').onclick=async()=>{
+    const btn=$('#pcSave');if(btn.disabled) return;
+    try{
+      btn.disabled=true;
+      if(has&&!(await pinMatches($('#pcOld').value.trim()))){toast('Your current passcode isn’t right.');return}
+      const p=$('#pcNew').value.trim();
+      if(!/^\d{4,6}$/.test(p)){toast('Use 4 to 6 digits, numbers only.');return}
+      if(p!==$('#pcNew2').value.trim()){toast('The two passcodes don’t match.');return}
+      const h=await hashPin(p);
+      state.settings.lock={salt:h.salt,hash:h.hash,len:p.length};
+      persistSettings();closeSheet();renderAll();toast(addr('your diary is now locked with a passcode.'));
+    }catch(e){toast('This browser can’t set a passcode.')}
+    finally{btn.disabled=false}
+  };
+}
+function openPasscodeOff(){
+  openSheet(`<button class="icon-btn x" data-close aria-label="Close">✕</button><h3>Turn off passcode</h3>
+  <p style="color:var(--ink-2);margin:4px 0 0;font-size:.92rem">Without a passcode, anyone who opens the app on your phone sees your numbers straight away.</p>
+  ${pinFields(true)}
+  <div class="actions"><button class="btn ghost" data-close>Cancel</button><button class="btn danger" id="pcOff">Turn off</button></div>`);
+  $('#pcOff').onclick=async()=>{
+    if(!(await pinMatches($('#pcOld').value.trim()))){toast('That passcode isn’t right.');return}
+    state.settings.lock=null;persistSettings();closeSheet();renderAll();toast('Passcode turned off.');
+  };
+}
+
 /* ---------- start ---------- */
+setInert(true);
 loadLocal();
 resetForm();
 renderAll();
